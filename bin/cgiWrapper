@@ -1,0 +1,123 @@
+#!/bin/bash
+#*************************************************************************
+#* conan - the brute force CGI
+#* Copyright (c) 2011 Michael D Henderson
+#*
+#* This file is part of conan (http://github.com/quoha/conan).
+#*
+#* This program is free software: you can redistribute it and/or modify
+#* it under the terms of the GNU General Public License as published by
+#* the Free Software Foundation, either version 3 of the License, or
+#* (at your option) any later version.
+#*
+#* This program is distributed in the hope that it will be useful,
+#* but WITHOUT ANY WARRANTY; without even the implied warranty of
+#* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#* GNU General Public License for more details.
+#*
+#* You should have received a copy of the GNU General Public License
+#* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#*
+#*************************************************************************
+
+envFile=FROMPROGRAM
+gnuExpect=fail
+gnuProgram=
+
+source data/cgi/envClear || exit 2
+
+# set up the CGI environment
+while [ -n "${1}" ]
+do
+  if [ "${1}" == "--" ]
+  then
+    shift;
+    break;
+  fi
+  case "${1}" in
+    --help)
+      echo
+      echo "usage: cgiWrapper [options] -- _program_ _optional_parameter_list_"
+      echo "  opt: --fail      expect that the program's status will be >= 2"
+      echo "       --warn      expect that the program's status will be == 1"
+      echo "       --pass      expect that the program's status will be == 0"
+      echo "       --env=xxx   source 'xxx' as the CGI environment"
+      echo "                   if no environment is passed, used a generic environment"
+      echo
+      exit 2 ;;
+    --fail)
+      gnuExpect=fail ;;
+    --pass)
+      gnuExpect=pass ;;
+    --warn)
+      gnuExpect=warn ;;
+    --env=*)
+      envFile="${1##*=}"
+      ;;
+    *)
+      echo
+      echo "error: invalid option '${1}'"
+      echo "       try the --help option for more information"
+      echo
+      exit 2 ;;
+  esac
+  shift
+done
+
+gnuProgram="${1}"
+shift
+
+# set up the CGI environment
+if [ "${envFile}" == FROMPROGRAM ]
+then
+  envFile=$( ${gnuProgram} --env-file-name )
+  if [ -z "${envFile}" ]
+  then
+    echo
+    echo "error: unit test ${gnuProgram} does not accept --env-file-name option"
+    echo
+    exit 2
+  fi
+fi
+source data/cgi/${envFile} || exit 2
+
+# test the command
+
+if [ ! -f "${gnuProgram}" ]
+then
+  echo
+  echo "error: unable to locate program"
+  echo "       programName      == '${gnuProgram}'"
+  echo
+  exit 2
+elif [ ! -x "${gnuProgram}" ]
+then
+  echo
+  echo "error: program is not executable (check permissions)"
+  echo "       programName      == '${gnuProgram}'"
+  echo
+  exit 2
+fi
+
+"${gnuProgram}" $*
+retVal=$?
+
+case "${retVal}" in
+  0) case "${gnuExpect}" in
+       fail) gnuStatus=2 ;;
+       pass) gnuStatus=0 ;;
+       warn) gnuStatus=2 ;;
+     esac ;;
+  1) case "${gnuExpect}" in
+       fail) gnuStatus=2 ;;
+       pass) gnuStatus=2 ;;
+       warn) gnuStatus=0 ;;
+     esac ;;
+  *) case "${gnuExpect}" in
+       fail) gnuStatus=0 ;;
+       pass) gnuStatus=2 ;;
+       warn) gnuStatus=2 ;;
+     esac ;;
+esac
+echo "test: expect ${gnuExpect} got ${retVal} exit ${gnuStatus}"
+exit ${gnuStatus}

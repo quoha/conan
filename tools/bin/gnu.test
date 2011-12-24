@@ -1,0 +1,55 @@
+#!/bin/bash
+#*************************************************************************
+#* conan - the brute force CGI
+#* Copyright (c) 2011 Michael D Henderson
+#*
+#* This file is part of conan (http://github.com/quoha/conan).
+#*
+#* This program is free software: you can redistribute it and/or modify
+#* it under the terms of the GNU General Public License as published by
+#* the Free Software Foundation, either version 3 of the License, or
+#* (at your option) any later version.
+#*
+#* This program is distributed in the hope that it will be useful,
+#* but WITHOUT ANY WARRANTY; without even the implied warranty of
+#* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#* GNU General Public License for more details.
+#*
+#* You should have received a copy of the GNU General Public License
+#* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#*
+#*************************************************************************
+
+# test the command
+
+if [ $# -lt 2 ]
+then
+  echo
+  echo usage: gnu.test _expect_ _program_ _optional_parameter_list_
+  echo
+  exit 2
+else
+  gnuExpect="${1}" ; shift
+  gnuProgram="${1}" ; shift
+fi
+
+if [ ! -f "${gnuProgram}" ]
+then
+  echo
+  echo "error: unable to locate program"
+  echo "       programName      == '${gnuProgram}'"
+  echo
+  exit 2
+elif [ ! -x "${gnuProgram}" ]
+then
+  echo
+  echo "error: program is not executable (check permissions)"
+  echo "       programName      == '${gnuProgram}'"
+  echo
+  exit 2
+fi
+
+"${gnuProgram}"
+retVal=$?
+
+exit ${retVal}

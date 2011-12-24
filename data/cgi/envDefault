@@ -1,0 +1,45 @@
+#*************************************************************************
+#* conan - the brute force CGI
+#* Copyright (c) 2011 Michael D Henderson
+#*
+#* This file is part of conan.
+#*
+#* conan is free software; you can redistribute it and/or modify it under
+#* the terms of the GPLv3 License, as specified in the COPYING file
+#*************************************************************************
+#
+# default environment for testing CGI scripts
+#
+#*************************************************************************
+
+export DOCUMENT_ROOT='/home/conan'
+export GATEWAY_INTERFACE='CGI/1.1'
+export HTTP_ACCEPT='text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+export HTTP_ACCEPT_CHARSET='ISO-8859-1,utf-8;q=0.7,*;q=0.7'
+export HTTP_ACCEPT_ENCODING='gzip, deflate'
+export HTTP_ACCEPT_LANGUAGE='en-us,en;q=0.5'
+export HTTP_CONNECTION='close'
+export HTTP_DNT='1'
+export HTTP_HOST='http://example.com'
+export HTTP_USER_AGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
+export PATH='/bin:/usr/bin:/sbin:/usr/sbin'
+export PHP_SELF='/afile.php'
+export QUERY_STRING='no value'
+export RAILS_ENV='production'
+export REMOTE_ADDR='192.168.19.21'
+export REMOTE_PORT='49217'
+export REQUEST_METHOD='GET'
+export REQUEST_TIME='1324735775'
+export REQUEST_URI='/afile.php'
+export SCRIPT_FILENAME='/home/conan/afile.php'
+export SCRIPT_NAME='/afile.php'
+export SCRIPT_URI='http://example.com/afile.php'
+export SCRIPT_URL='/afile.php'
+export SERVER_ADDR='192.168.145.231'
+export SERVER_ADMIN='webmaster@example.com'
+export SERVER_NAME='example.com'
+export SERVER_PORT='80'
+export SERVER_PROTOCOL='HTTP/1.1'
+export SERVER_SIGNATURE='no value'
+export SERVER_SOFTWARE='Apache'
+export UNIQUE_ID='TvXdHkWjkecAAHrS7o4AAAAC'

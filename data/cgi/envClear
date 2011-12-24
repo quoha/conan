@@ -1,0 +1,73 @@
+#*************************************************************************
+#* conan - the brute force CGI
+#* Copyright (c) 2011 Michael D Henderson
+#*
+#* This file is part of conan.
+#*
+#* conan is free software; you can redistribute it and/or modify it under
+#* the terms of the GPLv3 License, as specified in the COPYING file
+#*************************************************************************
+#
+# clear environment for testing CGI scripts
+#
+#*************************************************************************
+
+# unset some values from my test serve
+unset Apple_PubSub_Socket_Render
+unset COMMAND_MODE
+unset DISPLAY
+unset FIGNORE
+unset HOME
+unset LANG
+unset LOGNAME
+unset PATH
+unset PWD
+unset SECURITYSESSIONID
+unset SHELL
+unset SHLVL
+unset SSH_AUTH_SOCK
+unset TERM
+unset TERM_PROGRAM
+unset TERM_PROGRAM_VERSION
+unset TERM_SESSION_ID
+unset TMPDIR
+unset USER
+unset __CF_USER_TEXT_ENCODING
+
+# unset the CGI
+unset DH_USER
+unset DOCUMENT_ROOT
+unset FCGI_ROLE
+unset GATEWAY_INTERFACE
+unset HTTP_ACCEPT
+unset HTTP_ACCEPT_CHARSET
+unset HTTP_ACCEPT_ENCODING
+unset HTTP_ACCEPT_LANGUAGE
+unset HTTP_CONNECTION
+unset HTTP_DNT
+unset HTTP_HOST
+unset HTTP_USER_AGENT
+unset PATH
+unset PHP_SELF
+unset QUERY_STRING
+unset RAILS_ENV
+unset REMOTE_ADDR
+unset REMOTE_PORT
+unset REQUEST_METHOD
+unset REQUEST_TIME
+unset REQUEST_URI
+unset SCRIPT_FILENAME
+unset SCRIPT_NAME
+unset SCRIPT_URI
+unset SCRIPT_URL
+unset SERVER_ADDR
+unset SERVER_ADMIN
+unset SERVER_NAME
+unset SERVER_PORT
+unset SERVER_PROTOCOL
+unset SERVER_SIGNATURE
+unset SERVER_SOFTWARE
+unset UNIQUE_ID
+
+# reset minimal PATH
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
