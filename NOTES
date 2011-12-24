@@ -18,6 +18,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *************************************************************************/
-
-I think that I may understand this now. Use a RESTful approach. Organize per
-the resources. Bring sessions into it late in the game.
