@@ -29,25 +29,24 @@ conanTXT *ConanTXTConcat(conanTXT *a, conanTXT *b) {
 	conanTXT *txt = 0;
 
 	if (a && b) {
-		if (a->null && b->null) {
-			txt = ConanTXTFromString(0, 0);
-		} else {
-			txt = malloc(sizeof(*txt) + a->lenCurr + b->lenCurr);
-			if (txt) {
-				txt->lenCurr = a->lenCurr + b->lenCurr;
-				txt->lenMax  = a->lenCurr + b->lenCurr;
-				txt->null    = 0;
-				txt->tainted = 0;
-				memcpy(txt->data             , a->data, a->lenCurr    );
-				memcpy(txt->data + a->lenCurr, b->data, b->lenCurr + 1);
+		txt = ConanTXTNew(a->lenCurr + b->lenCurr);
+		if (txt) {
+			if (a->null && b->null) {
+				txt->null = 1;
+			} else {
+				txt->null = 0;
 			}
+			txt->lenCurr = a->lenCurr + b->lenCurr;
+			txt->tainted = 0;
+			memcpy(txt->data             , a->data, a->lenCurr);
+			memcpy(txt->data + a->lenCurr, b->data, b->lenCurr);
 		}
 	} else if (a && !a->null) {
 		txt = ConanTXTFromString(a->data, a->lenCurr);
 	} else if (b && !b->null) {
 		txt = ConanTXTFromString(b->data, b->lenCurr);
 	} else {
-		txt = ConanTXTFromString(0, 0);
+		txt = ConanTXTNew(0);
 	}
 
 	return txt;

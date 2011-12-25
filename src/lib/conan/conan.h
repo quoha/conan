@@ -33,10 +33,12 @@ conanCTX *ConanCTX(int argc, char **argv, char **env);
 conanENV *ConanENV(const char **env);
 conanTXT *ConanGetEnv(conanTXT *name);
 conanTXT *ConanSetEnv(conanTXT *name, conanTXT *value);
+conanTXT *ConanTXTNew(int len);
 conanTXT *ConanTXTFromCString(const char *value);
 conanTXT *ConanTXTFromString(const char *value, int len);
-conanTXT *ConanTXTConcat(conanTXT *a, conanTXT *b);
 int       ConanTXTCompare(conanTXT *a, conanTXT *b);
+conanTXT *ConanTXTConcat(conanTXT *a, conanTXT *b);
+#define   ConanTXTIsNull(x) ((x) && (x)->null)
 
 /*************************************************************************
  */

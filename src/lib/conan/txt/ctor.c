@@ -36,19 +36,33 @@ conanTXT *ConanTXTFromString(const char *value, int len) {
 		len = 0;
 	}
 
-	conanTXT *txt = malloc(sizeof(*txt) + len);
+	conanTXT *txt = ConanTXTNew(len);
 	if (txt) {
 		txt->lenCurr = len;
-		txt->lenMax  = len;
-		txt->tainted = 0;
-		if (value == 0) {
-			txt->null    = 1;
-			memset(txt->data, 0, len + 1);
-		} else {
-			txt->null    = 0;
+		if (value) {
+			txt->null = 0;
 			memcpy(txt->data, value, len);
-			txt->data[len] = 0;
 		}
+	}
+
+	return txt;
+}
+
+/*************************************************************************
+ */
+conanTXT *ConanTXTNew(int len) {
+	if (len < 0) {
+		len = 0;
+	}
+
+	conanTXT *txt = malloc(sizeof(*txt) + len);
+	if (txt) {
+		txt->lenCurr   = 0;
+		txt->lenMax    = len;
+		txt->tainted   = 0;
+		txt->null      = 1;
+		txt->data[0]   = 0;
+		txt->data[len] = 0;
 	}
 
 	return txt;
